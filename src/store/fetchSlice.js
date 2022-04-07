@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 const initialState = {
 	isLoading: false,
@@ -23,6 +24,24 @@ const fetchSlice = createSlice({
 		},
 	},
 });
+
+export const getData = () => {
+	return async (dispatch) => {
+		dispatch(fetchActions.startFetch);
+		const fetchData = async () => {
+			const response = await axios(
+				'https://jsonplaceholder.typicode.com/users'
+			);
+			return response.data;
+		};
+		try {
+			const users = await fetchData();
+			dispatch(fetchActions.successFetch(users));
+		} catch (error) {
+			dispatch(fetchActions.failedFetch(error));
+		}
+	};
+};
 
 export const fetchActions = fetchSlice.actions;
 
