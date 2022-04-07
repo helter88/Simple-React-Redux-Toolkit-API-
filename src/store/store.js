@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit';
-import fetchSlice from './FetchSlice';
+import fetchSlice from './fetchSlice';
 
 const store = configureStore({
 	reducer: fetchSlice.reducer,
